@@ -112,10 +112,6 @@ if [ "$VERSION_TYPE" != "minimal" ] && [ -z "$(uci -q get luci.main.pollinterval
     uci commit luci
 fi
 
-# timezone
-uci set system.@system[0].timezone=CST-8
-uci set system.@system[0].zonename=Asia/Shanghai
-uci commit system
 
 # log level
 uci set system.@system[0].conloglevel='1'
@@ -164,13 +160,6 @@ fi
 uci set firewall.@defaults[0].input='ACCEPT'
 uci commit firewall
 
-# diagnostics
-if [ $(uci -q get luci.diag.ping) = "openwrt.org" ]; then
-    uci set luci.diag.dns='www.qq.com'
-    uci set luci.diag.ping='www.qq.com'
-    uci set luci.diag.route='www.qq.com'
-    uci commit luci
-fi
 
 # packet steering
 uci -q get network.globals.packet_steering > /dev/null || {
